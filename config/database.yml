@@ -2,7 +2,6 @@ base: &base
   adapter: em_postgresql
   host: dev-db-2.vpn.intspot.com
   username: bdu
-  password: hhuils
   schema_search_path: bdu,public
   database: juneau
   statement_timeout: 60
@@ -26,5 +25,4 @@ production:
   <<: *base
   host: localhost
   database: prod_2
-  password: ogre38:bon
   port: 15432
