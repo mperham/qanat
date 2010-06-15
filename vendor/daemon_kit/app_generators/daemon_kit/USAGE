@@ -1,0 +1,7 @@
+Description:
+  This generator creates a new skeleton project suitable for easy
+  Ruby daemon development. The generated project is preconfigured
+  and just requires your task specific code.
+
+  Use one of the provided generators to stub out even more 
+  functionality for common daemon patterns.
