@@ -1,3 +1,9 @@
+require 'uri'
+require 'nokogiri'
+require 'digest/md5'
+require 'em-http'
+require 'authentication'
+
 module SQS
   DEFAULT_HOST = URI.parse("http://queue.amazonaws.com/")
   API_VERSION = "2009-02-01"
@@ -7,21 +13,9 @@ module SQS
     
     include Amazon::Authentication
 
-    def initialize(name)
-      @config = Qanat.load('amzn')
+    def initialize(name, config)
+      @config = config
       @uri = URI.parse(url_for(name))
-    end
-    
-    def poll(concurrency, &block)
-      concurrency.times do
-        Fiber.new do
-          while true
-            receive_msg do |msg|
-              block.call msg
-            end
-          end
-        end.resume
-      end
     end
     
     def push(msg)
@@ -32,7 +26,11 @@ module SQS
         logger.error "SQS send_message returned an error response: #{code} #{http.response}"
       end
     end
-    
+
+    def process_msg(&block)
+      receive_msg(&block)
+    end
+
     private
     
     def create(name)
@@ -138,7 +136,7 @@ module SQS
     end
 
     def timeout
-      Integer(@config['timeout'])
+      Integer(@config[:timeout])
     end
   end
 end

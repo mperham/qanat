@@ -1,3 +1,7 @@
+require "base64"
+require "openssl"
+require 'digest/md5'
+
 module Amazon
   module Authentication
     SIGNATURE_VERSION = "2"
@@ -12,11 +16,11 @@ module Amazon
     end
 
     def aws_access_key_id
-      @config['access_key']
+      @config[:access_key]
     end
 
     def aws_secret_access_key
-      @config['secret_key']
+      @config[:secret_key]
     end
 
     def amz_escape(param)

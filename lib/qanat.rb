@@ -13,6 +13,35 @@ module Qanat
     def method_missing(name, *args)
       @config[name.to_sym] = args.first
     end
+
+    def start(queue)
+      klass.new(config, queue)
+    end
+
+    private
+
+    def klass
+      @klass ||= begin
+        require "drivers/#{type}"
+        constantize("Qanat::#{camelize(type)}")
+      end
+    end
+
+    def camelize(str)
+      str.to_s.gsub(/\/(.?)/) { "::#{$1.upcase}" }.gsub(/(?:^|_)(.)/) { $1.upcase }
+    end
+
+    def constantize(camel_cased_word)
+      names = camel_cased_word.split('::')
+      names.shift if names.empty? || names.first.empty?
+
+      constant = Object
+      names.each do |name|
+        constant = constant.const_get(name, false) || constant.const_missing(name)
+      end
+      constant
+    end
+
   end
 
   class Queue

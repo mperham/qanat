@@ -16,15 +16,23 @@ DaemonKit.trap('TERM') { ::EM.stop }
 DaemonKit.logger.debug("EM.run")
 EM.run do
   DaemonKit.logger.info "start"
-
-  Fiber.new do
-    sqs = SQS::Queue.new(DaemonKit.arguments.options[:queue_name])
-    sqs.poll(3) do |msg|
-      Fiber.new do 
-        Qanat.dispatch(msg)
+  
+  (server, queues) = Qanat.configuration
+  
+  queues.each do |q|
+    q.worker_count.each do
+      FIBERS << Fiber.new do
+        begin
+          driver = server.start(q)
+          driver.process_loop
+        rescue Exception => ex
+          DaemonKit.logger.warn "Fiber dying due to: #{ex.class.name}"
+          DaemonKit.logger.warn "Message: #{ex.message}"
+          DaemonKit.logger.warn ex.backtrace.join("\n")
+        end
       end.resume
     end
-  end.resume
+  end
 end
 
 

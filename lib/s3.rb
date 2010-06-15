@@ -1,4 +1,9 @@
 require 'mime/types'
+require "cgi"
+require "base64"
+require "openssl"
+require 'digest/md5'
+require 'authentication'
 
 module S3
   USE_100_CONTINUE_PUT_SIZE = 1_000_000
@@ -10,9 +15,9 @@ module S3
 
     include Amazon::Authentication
     
-    def initialize(bucket)
-      @config = Qanat.load('amzn')
+    def initialize(bucket, config)
       @bucket = bucket
+      @config = config
     end
     
     def put(key, data=nil, headers={})

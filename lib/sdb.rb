@@ -1,3 +1,8 @@
+require "cgi"
+require 'nokogiri'
+require 'em-http'
+require 'authentication'
+
 module SDB
   DEFAULT_HOST = 'sdb.amazonaws.com'
   API_VERSION = '2009-04-15'
@@ -5,9 +10,9 @@ module SDB
   class Database
     include Amazon::Authentication
     
-    def initialize(domain)
-      @config = Qanat.load('amzn')
+    def initialize(domain, config)
       @domain = domain
+      @config = config
     end
 
 =begin
