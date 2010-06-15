@@ -26,16 +26,21 @@ end
 
 require 'qanat'
 
-Qanat.setup do
-  # queue 'image_crawling' do |q|
-  #   q.worker_count = 10
-  #   q.processor = ImageCrawler
-  # end
-  # 
-  # queue 'page_indexing' do |q|
-  #   q.worker_count = 20
-  #   q.processor = PageIndexer
-  # end
-end
-
-p Qanat::QUEUES
+# Qanat.setup do
+#   server :beanstalkd do
+#     host 'localhost'
+#     port 11300
+#   end
+# 
+#   queue 'image_crawling' do
+#     worker_count 10
+#     processor File
+#   end
+#   # 
+#   # queue 'page_indexing' do |q|
+#   #   q.worker_count = 20
+#   #   q.processor = PageIndexer
+#   # end
+# end
+# 
+# p Qanat.configuration
