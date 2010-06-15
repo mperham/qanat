@@ -6,6 +6,7 @@ require 'digest/md5'
 require 'fiber'
 require 'yaml'
 require 'time'
+require 'erb'
 
 require 'nokogiri'
 require 'em-http'

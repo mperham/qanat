@@ -23,3 +23,19 @@ DaemonKit::Initializer.run do |config|
   # config.safety_net.handler = :mail # (or :hoptoad )
   # config.safety_net.mail.host = 'localhost'
 end
+
+require 'qanat'
+
+Qanat.setup do
+  # queue 'image_crawling' do |q|
+  #   q.worker_count = 10
+  #   q.processor = ImageCrawler
+  # end
+  # 
+  # queue 'page_indexing' do |q|
+  #   q.worker_count = 20
+  #   q.processor = PageIndexer
+  # end
+end
+
+p Qanat::QUEUES

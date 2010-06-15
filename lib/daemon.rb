@@ -9,8 +9,6 @@ DaemonKit::Application.running! do |config|
   end
 end
 
-require 'dispatch'
-
 DaemonKit.trap('INT') { ::EM.stop }
 DaemonKit.trap('TERM') { ::EM.stop }
 
