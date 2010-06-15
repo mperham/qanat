@@ -12,6 +12,8 @@ end
 DaemonKit.trap('INT') { ::EM.stop }
 DaemonKit.trap('TERM') { ::EM.stop }
 
+FIBERS = []
+
 # Start our event loop
 DaemonKit.logger.debug("EM.run")
 EM.run do
@@ -20,7 +22,7 @@ EM.run do
   (server, queues) = Qanat.configuration
   
   queues.each do |q|
-    q.worker_count.each do
+    q.worker_count.times do
       FIBERS << Fiber.new do
         begin
           driver = server.start(q)

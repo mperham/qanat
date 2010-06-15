@@ -13,5 +13,7 @@ gem 'eventmachine', '>= 0.10.12'
 group :test do
   gem "rspec"
   gem "mocha"
+  gem 'beanstalk-client'
+  gem 'em-jack'
 #  gem 'right_aws', :git => "git://github.com/mperham/right_aws.git"
 end

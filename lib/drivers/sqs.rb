@@ -8,7 +8,7 @@ module Qanat
     end
 
     def process_loop
-      @processor ||= @queue.processor.new
+      @processor ||= @queue.processor_class.new
       while true
         process_msg do |job|
           @processor.process(job)

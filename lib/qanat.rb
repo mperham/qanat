@@ -45,23 +45,23 @@ module Qanat
   end
 
   class Queue
-    attr_accessor :worker_count
-    attr_accessor :name
-    attr_accessor :processor
-    attr_accessor :config
+    attr_reader :worker_count
+    attr_reader :name
+    attr_reader :processor_class
+    attr_reader :config
 
     def initialize(name, &block)
-      self.name = name
-      self.config = {}
+      @name = name
+      @config = {}
       instance_eval(&block)
     end
 
-    def worker_count(count)
+    def workers(count)
       @worker_count = count
     end
 
     def processor(proc)
-      @processor = proc
+      @processor_class = proc
     end
 
     def method_missing(name, *args)
