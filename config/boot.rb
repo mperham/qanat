@@ -7,7 +7,7 @@ begin
   require File.expand_path('../../.bundle/environment', __FILE__)
 rescue LoadError
   puts "Please install bundler:"
-  puts "  gem install bundler -v '~>0.9.3'"
+  puts "  gem install bundler"
   puts "and then initialize Qanat's gem environment:"
   puts "  bundle install && bundle lock"
   exit
