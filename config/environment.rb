@@ -3,6 +3,9 @@
 # Uncomment below to force your daemon into production mode
 #ENV['DAEMON_ENV'] ||= 'production'
 
+require 'fileutils'
+FileUtils.mkdir_p(File.dirname(__FILE__) + '/../log')
+
 # Boot up
 require File.join(File.dirname(__FILE__), 'boot')
 

@@ -4,17 +4,19 @@
 DaemonKit::Application.running! do |config|
   # Trap signals with blocks or procs
   config.trap( 'HUP' ) do
-    # Dump the REE stack traces
-    p caller_for_all_threads if Object.respond_to? :caller_for_all_threads
   end
   config.trap('TERM') do
-    # TODO print out the number of messages waiting to be processed
   end
 end
 
 require 'dispatch'
 
-Qanat.run do
+DaemonKit.trap('INT') { ::EM.stop }
+DaemonKit.trap('TERM') { ::EM.stop }
+
+# Start our event loop
+DaemonKit.logger.debug("EM.run")
+EM.run do
   DaemonKit.logger.info "start"
 
   Fiber.new do
