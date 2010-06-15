@@ -27,25 +27,25 @@ end
 require 'qanat'
 
 # Qanat.setup do
-#
-## Example: Local beanstalk MQ server
+# 
+# # Example: Local beanstalk MQ server
 #   server :beanstalk do
 #     host 'localhost'
 #     port 11300
 #   end
-#
-## Example: Amazon SQS
+# 
+# # Example: Amazon SQS
 #   server :sqs do
 #     access_key '25NFSD73ACZA0222PMR2'
 #     secret_key 'FHGkQP3f3d1dDLk4ZbDh5ph2S9JkiSQ2rxyxJZyg'
 #   end
-#
-## Now define the queues
+# 
+# # Now define the queues
 #   queue 'image_crawling' do
 #     worker_count 10
 #     processor ImageCrawler
 #   end
-#    
+# 
 #   queue 'page_indexing' do |q|
 #     worker_count 20
 #     processor PageIndexer
