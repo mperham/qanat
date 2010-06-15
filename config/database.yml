@@ -1,9 +1,10 @@
 base: &base
   adapter: em_postgresql
-  host: dev-db-2.vpn.intspot.com
-  username: bdu
-  schema_search_path: bdu,public
-  database: juneau
+  host: localhost
+  username: mike
+  password: password
+  schema_search_path: public
+  database: qanat_development
   statement_timeout: 60
   encoding: UTF8
   port: 5432
@@ -16,13 +17,8 @@ staging:
 
 test:
   <<: *base
-  host: localhost
-  username: mike
-  password: password
-  database: onespot_test
+  database: qanat_test
   
 production: 
   <<: *base
-  host: localhost
-  database: prod_2
-  port: 15432
+  database: qanat_production
