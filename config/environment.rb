@@ -24,7 +24,10 @@ DaemonKit::Initializer.run do |config|
   # config.safety_net.mail.host = 'localhost'
 end
 
+# Qanat core and DSL
 require 'qanat'
+
+# Require your message processor classes
 require 'processors/image_crawler'
 
 Qanat.setup do
@@ -52,5 +55,3 @@ Qanat.setup do
   #   processor PageIndexer
   # end
 end
-
-# p Qanat.configuration

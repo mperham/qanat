@@ -10,7 +10,7 @@ module Qanat
     def process_loop
       @processor ||= @queue.processor_class.new
       while true
-        process_msg do |job|
+        @server.process_msg do |job|
           @processor.process(job)
         end
       end
