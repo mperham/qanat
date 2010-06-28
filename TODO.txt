@@ -1,0 +1,3 @@
+ - Move away from git-based distribution and instead modify Qanat to be a Rubygem along with a generator and binary, a la Rails.
+ - Better service / process management support.  Recipes for monit and god monitoring.  init.d shell script.
+ - Support for other MQ servers: RabbitMQ (via http://github.com/mperham/bunny), others?
