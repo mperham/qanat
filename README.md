@@ -27,7 +27,9 @@ Qanat provides basic implementations of SQS, SimpleDB and S3 event-based clients
 Install
 ---------
 
-    gem install qanat
+Qanat is not a Rubygem, you fork/clone it from Github and modify to suit your own needs.
+
+    git clone git://github.com/mperham/qanat.git
 
 
 Configuration
