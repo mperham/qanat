@@ -11,6 +11,7 @@ class Fiber
   end
 end
 
+# Modify em-jack with a monkeypatch to make it Fiber-aware.
 module EMJack
   class Connection
 

@@ -20,7 +20,7 @@ Design
 
 Qanat will process many messages concurrently, using EventMachine to manage the overall processing.  Ruby 1.9 is required.
 
-Qanat supports any MQ system by providing a driver for each type.  See `lib/drivers`.
+Qanat supports any MQ system by providing a driver for each type of system.  See `lib/drivers`.  Drivers for Beanstalk and SQS are provided out of the box.
 
 Qanat provides basic implementations of SQS, SimpleDB and S3 event-based clients.  These clients can be used in your own message processing code.
 
@@ -33,7 +33,7 @@ Install
 Configuration
 ----------------
 
-You will need to configure your MQ server and the queues to process.  See the simple DSL example in `config/environment.rb`.
+You will need to configure your MQ server and the queues to process.  See the simple DSL example in `config/pre-daemonize/qanat.rb`.
 
     Qanat.setup do
       # Example: Local beanstalk MQ server
