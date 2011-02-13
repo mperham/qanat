@@ -13,6 +13,9 @@ module SDB
     def initialize(domain, config)
       @domain = domain
       @config = config
+	  @config[:host] ||= 'sdb.amazonaws.com' # default host
+      @config[:api_version] ||= '2009-04-15' # default API
+      @config[:protocol] ||= "https" # default protocol
     end
 
 =begin
@@ -93,20 +96,20 @@ module SDB
         # &Signature=P0wPnG7pbXjJ%2F0X8Uoclj4ZJXUl32%2Fog2ouegjGtIBU%3D
       { 
         "Timestamp" => Time.now.utc.strftime("%Y-%m-%dT%H:%M:%SZ"),
-        "Version" => API_VERSION,
+        "Version" => @config[:api_version],
         'DomainName' => @domain,
       }
     end
 
     def async_operation(method, parameters, opts)
       f = Fiber.current
-      data = signed_parameters(parameters, method.to_s.upcase, DEFAULT_HOST, '/')
+      data = signed_parameters(parameters, method.to_s.upcase, @config[:host], '/')
       args = if method == :get
         { :query => data }.merge(opts)
       else
         { :body => data }.merge(opts)
       end
-      http = EventMachine::HttpRequest.new("http://#{DEFAULT_HOST}/").send(method, args)
+      http = EventMachine::HttpRequest.new("#{@config[:protocol]}://#{@config[:host]}/").send(method, args)
       http.callback { f.resume(http) }
       http.errback { f.resume(http) }
 
